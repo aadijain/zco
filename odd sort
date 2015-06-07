@@ -1,0 +1,49 @@
+#include<iostream>
+#include<fstream>
+#include<math.h>
+#include<vector>
+#include<map>
+using namespace std;
+
+int max(int a,int b)
+{
+    if(a>=b)
+    {
+       // cout<<a<<"\n";
+        return a;
+    }
+    return b;
+}
+
+int calc(vector<int> arr)
+{
+    int sum=0,maxval;
+    vector<int>::iterator maxpos,i;
+    maxpos=i=arr.begin();
+
+    if(arr.size()==0)
+        return 0;
+    for(;i<arr.end(); i++)
+    {
+        if(*i>*maxpos)
+            maxpos=i;
+    }
+    for(i=maxpos+1;i<arr.end();i++)
+        sum+=*i;
+
+    maxval=*maxpos;
+    arr.erase(maxpos);
+    return max(sum,calc(arr));
+}
+int main()
+{
+    int n;
+    vector<int> arr;
+    cin>>n;
+    arr.resize(n);
+
+    for(vector<int>::iterator i=arr.begin(); i<arr.end(); i++)
+        cin>>*i;
+    cout<<"\n"<<calc(arr);
+    return 0;
+}
